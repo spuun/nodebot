@@ -25,10 +25,6 @@ var irc = {
 		this.modules = {};
 		this.buffer = '';
 
-		this.on('chan!load', function(data) {
-			this.log('channel!load: ' + data.args);
-			this.loadModule(data.args);
-		}.bind(this));
 		this.on('PRIVMSG', function(from, target, message) {
 			if (target == this.connection.nick) {
 				this.emit('BOTMSG', from, message);
