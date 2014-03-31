@@ -82,14 +82,14 @@ irc.client.prototype.loadModule = function(modName) {
 		}.bind(this);
 		module.send = this.send.bind(this);
 		var unload = typeof module.unload == 'function' ? module.unload.bind(module) : function() {
-			this.log('Module ' + module + ' unloaded.');
+			this.log('Module ' + modName + ' unloaded.');
 		}.bind(this);
 		module.unload = function() {
 			for (var i=0;i<callbacks.length;++i) {
 				this.off(callbacks[i].event, callbacks[i].callback);
 			}
 			unload();
-		};
+		}.bind(this);
 		if (typeof module.init == 'function') {
 			module.init();
 		}
