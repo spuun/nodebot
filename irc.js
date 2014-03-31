@@ -78,7 +78,7 @@ irc.client.prototype.loadModule = function(modName) {
 		module.send = this.send.bind(this);
 		var unload = typeof module.unload == 'function' ? module.unload.bind(module) : function() {
 			this.log('Module ' + module + ' unloaded.');
-		}.bind(this(;
+		}.bind(this);
 		module.unload = function() {
 			for (var i=0;i<callbacks;++i) {
 				this.off(callbacks[i].event, callbacks[i].callback);
