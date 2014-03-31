@@ -80,7 +80,7 @@ irc.client.prototype.loadModule = function(modName) {
 			this.log('Module ' + module + ' unloaded.');
 		}.bind(this);
 		module.unload = function() {
-			for (var i=0;i<callbacks;++i) {
+			for (var i=0;i<callbacks.length;++i) {
 				this.off(callbacks[i].event, callbacks[i].callback);
 			}
 			unload();
