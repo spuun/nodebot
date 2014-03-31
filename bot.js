@@ -4,8 +4,8 @@ var bot = new irc.client(
 			'irc.freenode.net:6667', 
 			'spuunbot', 
 			{
-				userName: 'spuunbot' 
-				realName: 'spuuns nodejs bot'
+				userName: 'spuunbot',
+				realName: 'spuuns nodejs bot',
 				debug: true,
 				channels: ['#example'],
 				admins: [
