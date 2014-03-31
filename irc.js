@@ -46,6 +46,18 @@ irc.client.prototype.debug = function(str) {
 irc.client.prototype.error = function(str) {
 	console.log('ERROR: ' + str);
 }
+irc.client.prototype.unloadModule = function(modName) {
+	if (!this.modules[modName]) {
+		this.warn('Unable to unload module ' + modName + '.');
+		return;
+	}
+	this.log('Unloading module ' + modName + '.');
+	if (typeof this.modules[modName].unload == 'function') {
+		this.modules[modName].unload();
+	}
+	delete this.modules[modName];
+	delete require.cache[require.resolve('./modules/' + modName)];
+};
 irc.client.prototype.loadModule = function(modName) {
 	fs.exists('./modules/' + modName + '.js', function(exists) {
 		if (!exists) {
@@ -54,10 +66,7 @@ irc.client.prototype.loadModule = function(modName) {
 		}
 		if (this.modules[modName]) {
 			this.log('Module ' + modName + ' already loaded. Unloading.');
-			if (typeof this.modules[modName].unload == 'function') {				
-				this.modules[modName].unload();
-			}
-			delete require.cache[require.resolve('./modules/' + modName)];
+			this.unloadModule(modName);
 		}
 		this.log('Loading module ' + modName);
 		var module = (this.modules[modName] = require('./modules/' + modName));
