@@ -15,7 +15,7 @@ var admin = {
 	},
 	isAdmin: function(userinfo) {
 		for(var i=0;i<this.bot.config.admins.length;++i) {
-			if (this.bot.config.admins[0].test(userinfo)) {
+			if (this.bot.config.admins[i].test(userinfo)) {
 				return true;
 			}
 		}
